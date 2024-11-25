@@ -2,7 +2,7 @@
 from pathlib import Path
 
 # Ruta base del proyecto
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent #se agrega .parent tenemos que saltar dentro de los templates un paso mas
 SECRET_KEY = 'django-insecure-81v-%mwilgr7lqz4_rp2%5kubp1mqhfqliq8x1a-u9$5x#)2we'
 # Configuración por defecto para producción
 DEBUG = False  # Por defecto en producción
@@ -28,6 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #aplicaciones de terceros
+    # aplicaciones locales
+    'applications.departamentos',
+    'applications.empleados',
+    'applications.home',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +50,7 @@ ROOT_URLCONF = 'empleado.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # Puedes agregar tus directorios de plantillas aquí
+        'DIRS': [BASE_DIR/'templates'],  # Puedes agregar tus directorios de plantillas aquí
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +80,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True

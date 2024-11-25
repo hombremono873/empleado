@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Personas</title>
+    <style>
+        /* Estilos básicos */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #0056b3;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .hero h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+        .hero p {
+            font-size: 1.2em;
+            color: #555;
+        }
+        .content {
+            padding: 2em;
+            text-align: center;
+        }
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            font-size: 0.9em;
+        }
+
+        /* Estilo para la lista de personas */
+        .personas-list {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        .personas-list h2 {
+            color: #007bff;
+            margin-bottom: 15px;
+        }
+        .persona-item {
+            background-color: #fff;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .persona-item:last-child {
+            margin-bottom: 0;
+        }
+        .persona-item span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header con Logo y Nav -->
+    <header>
+        <h1>Mi Empresa Profesional</h1>
+    </header>
+
+    <!-- Barra de Navegación -->
+    <nav>
+        <a href="/home">Inicio</a>
+        <a href="/lista">Lista de Personas</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <!-- Sección Principal -->
+    <section class="hero">
+        <div>
+            <h1>Bienvenido a la Lista de Personas</h1>
+            <p>Consulta aquí la información detallada de nuestras personas registradas.</p>
+        </div>
+    </section>
+
+    <!-- Lista de Personas -->
+    <section class="content personas-list">
+        <h2>Lista de Personas Registradas</h2>
+        <ul>
+            {% for persona in listapersonas %}
+                <li class="persona-item">
+                    <span>Nombre:</span> {{ persona.nombre }}<br>
+                    <span>Documento:</span> {{ persona.documento }}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <!-- Pie de Página -->
+    <footer>
+        <p>&copy; 2024 Mi Empresa Profesional. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
