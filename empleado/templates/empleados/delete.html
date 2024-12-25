@@ -1,0 +1,15 @@
+<h1>Eliminar empleado</h1>
+<form method="POST">
+    {% csrf_token %}
+    <p>Estás a punto de eliminar el siguiente empleado:</p>
+    <ul>
+        <li><strong>Nombre:</strong> {{ object.first_name }}</li>
+        <li><strong>Apellido:</strong> {{ object.last_name }}</li>
+        <li><strong>Trabajo:</strong> {{ object.job }}</li>
+        <li><strong>Departamento:</strong> {{ object.departamento }}</li>
+        <li><strong>Habilidades:</strong> {{ object.habilidades }}</li>
+    </ul>
+    <p>¿Deseas eliminar?</p>
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <button type="button" class="btn btn-default" onclick="window.location.href='{% url 'persona_app:correcto' %}'">No eliminar</button> <!-- Botón para cancelar -->
+</form>

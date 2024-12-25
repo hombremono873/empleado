@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Listado Personas
+{% endblock title %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x">
+        <h1 class="cell">Lista de Empleados</h1>
+
+        <!-- Formulario de búsqueda -->
+        <form class="cell grid-x grid-margin-x" method="GET">
+            {%csrf_token%}
+            <div class="cell large-7">
+                <input type="text" placeholder="Digite el nombre aquí"
+                    id="kword" name="kword">
+            </div>
+            <div class="cell large-2">
+                <button class="submit success button">Buscar</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tabla de empleados -->
+    <div class="cell">
+        <table class="hover bordered" style="table-layout: fixed; width: 100%;">
+            <thead>
+                <tr>
+                    <th class="small-1 column">ID</th> <!-- Ancho pequeño para la columna ID -->
+                    <th class="small-3 column">Nombres</th> <!-- Ancho moderado para la columna de nombres -->
+                    <th class="small-3 column">Apellidos</th>
+                    <th class="small-4 column">Departamentos</th>
+                    <th class="small-1 column">Acción</th> <!-- Ancho pequeño para la columna de acción -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                <tr>
+                    <td class="cell">{{ empleado.id }}</td>
+                    <td class="cell">{{ empleado.first_name }}</td>
+                    <td class="cell">{{ empleado.last_name }}</td>
+                    <td class="cell">{{ empleado.departamento }}</td>
+                    <td class="cell"><a class="button warning" href="#">Warning</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

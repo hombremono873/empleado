@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Grilla con Foundation</title>
+    <link rel="stylesheet" href="{% static 'css/foundation.min.css' %}">
+      
+</head>
+<body>
+    <h1 class="">Foundatium</h1> 
+    <div class="grid-x" style="border:2px solid red;">
+        <h2 class="cell large-2" style="border:2px solid red;">Elemento1</h2>
+        <h2 class="cell large-10" style="border:2px solid blue;">Elemento2</h2>
+        <h2 class="cell large-4" style="border:2px solid yellow;">Elemento3</h2>
+        <div class="cell large-6 grid-x" style="border:2px solid green;">
+            <h3 class="cell large-4" style="border:2px solid blue;">Elemento 11</h3>
+            <h3 class="cell large-4" style="border:2px solid green;">Elemento 12</h3>
+            <h3 class="cell large-4" style="border:2px solid yellow;">Elemento 13</h3>
+        </div>
+    </div>
+
+</body>
+</html>

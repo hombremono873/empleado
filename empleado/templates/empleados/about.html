@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sobre Nosotros</title>
+</head>
+<body>
+    <h1>Sobre {{ company_name }}</h1>
+    <p>Conoce a nuestro equipo:</p>
+    <ul>
+        {% for member in team %}
+            <li>{{ member.name }} - {{ member.role }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

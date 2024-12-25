@@ -5,7 +5,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent.parent #se agrega .parent tenemos que saltar dentro de los templates un paso mas
 SECRET_KEY = 'django-insecure-81v-%mwilgr7lqz4_rp2%5kubp1mqhfqliq8x1a-u9$5x#)2we'
 # Configuración por defecto para producción
-DEBUG = False  # Por defecto en producción
+ # Por defecto en producción
 ALLOWED_HOSTS = ['mi-sitio-en-produccion.com', '127.0.0.1', 'localhost']
 
 # Base de datos por defecto para producción (en este caso PostgreSQL)

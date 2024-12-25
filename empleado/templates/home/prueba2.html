@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplo de Grilla con Foundation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.min.css">
+    <style>
+        .box {
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+        .box1 { background-color: #3498db; } /* Azul */
+        .box2 { background-color: #e74c3c; } /* Rojo */
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-x">
+            <div class="cell large-6 medium-8 small-12 box box1">
+                Columna 1: large-6, medium-8, small-12
+            </div>
+            <div class="cell large-6 medium-4 small-12 box box2">
+                Columna 2: large-6, medium-4, small-12
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.min.js"></script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models # type: ignore
 from applications.departamentos.models import Departamentos
 # Create your models here.
 
@@ -23,8 +23,14 @@ class Empleado(models.Model):
     
     first_name = models.CharField(max_length=60, null=False)
     last_name = models.CharField(max_length=60, null=False)
+    full_name = models.name = models.CharField(
+        'Nombres Completos',
+        max_length=120,
+        blank=True
+    )
+    
     job = models.CharField(max_length=1, choices=JOB_CHOICES)
-    departamento = models.ForeignKey(Departamentos, models.CASCADE)
+    departamento = models.ForeignKey(Departamentos, on_delete=models.CASCADE) 
     #image = models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
     habilidades = models.ManyToManyField(Habilidades)
     

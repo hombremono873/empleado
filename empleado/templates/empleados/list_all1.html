@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Empleados</title>
+    <style>
+        /* Estilos básicos y consistentes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 1em 0;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #0056b3;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0 15px;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 2em;
+            background-color: #f4f4f4;
+        }
+
+        /* Tabla de empleados */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        thead {
+            background-color: #007bff;
+            color: white;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e8f4ff;
+        }
+        th {
+            text-transform: uppercase;
+            font-size: 0.9em;
+        }
+        td {
+            font-size: 0.9em;
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1em 0;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Mi Empresa Profesional</h1>
+    </header>
+
+    <!-- Navegación -->
+    <nav>
+        <a href="/home">Inicio</a>
+        <a href="/empleados">Lista de Empleados</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <section class="content">
+        <h2>Lista de Empleados Registrados</h2>
+        <form method="get">{% csrf_token %}
+            <input type="text" name="search" placeholder="Buscar por nombre..." value="{{ request.GET.search }}">
+            <button type="submit">Buscar</button>
+        </form>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Trabajo</th>
+                    <th>Departamento</th>
+                    <th>Habilidades</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                    <tr>
+                        <td>{{ empleado.id }}</td>
+                        <td>{{ empleado.first_name }}</td>
+                        <td>{{ empleado.last_name }}</td>
+                        <td>{{ empleado.get_job_display }}</td>
+                        <td>{{ empleado.departamento }}</td>
+                        <td>
+                            {% for habilidad in empleado.habilidades.all %}
+                                {{ habilidad.habilidad }}{% if not forloop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Pie de página -->
+    <footer>
+        <p>&copy; 2024 Mi Empresa Profesional. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
