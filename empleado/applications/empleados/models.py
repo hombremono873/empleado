@@ -31,7 +31,10 @@ class Empleado(models.Model):
     
     job = models.CharField(max_length=1, choices=JOB_CHOICES)
     departamento = models.ForeignKey(Departamentos, on_delete=models.CASCADE) 
-    #image = models.ImageField(_(""), upload_to=None, height_field=None, width_field=None, max_length=None)
+    imagen = models.ImageField(upload_to="empleado", blank = True,null=True
+                              ,height_field=None
+                              ,width_field=None
+                              ,max_length=None)
     habilidades = models.ManyToManyField(Habilidades)
     
     class Meta:

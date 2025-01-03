@@ -1,6 +1,7 @@
 from django.shortcuts import render 
 from django.urls import reverse_lazy
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 
 #from applications.departamentos.forms import NewDepartamentoForm
 from applications.departamentos.forms import NewDepartamentoForm
@@ -10,6 +11,11 @@ from applications.departamentos.models import Departamentos
 
 """Se importo el modelo empleado y departamento que estan en relacion done un departamento tiene muchos empleados
 """
+class ListaDepartamentos(ListView):
+    model = Departamentos
+    context_object_name = 'departamentos'
+    template_name='departamentos/listadept.html'
+    
 class NewDepartamentoView(FormView):
      template_name = 'departamentos/new_departamento.html'
      form_class = NewDepartamentoForm

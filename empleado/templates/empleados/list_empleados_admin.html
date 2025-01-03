@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Listado Personas
+{% endblock title %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+
+<div class="grid-container">
+    <div class="grid-x">
+        <h1 class="cell">Lista de Empleados</h1>
+    </div>
+
+    <!-- Tabla de empleados -->
+    <div class="cell">
+        <table class="hover bordered stack" style="table-layout: fixed; width: 100%;">
+            <thead>
+                <tr>
+                    <th class="small-1 medium-1">ID</th> <!-- Ancho más estrecho para la columna ID -->
+                        <th class="small-4 medium-3">Nombres</th> <!-- Ancho adaptable para la columna de nombres -->
+                        <th class="small-4 medium-3">Apellidos</th>
+                        <th class="small-6 medium-3">Departamentos</th>
+                         <th class="small-6 medium-3">Acción</th> <!-- Ajustar ancho de la columna Acción -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for e in empleados %}
+                <tr>
+                    <td>{{ e.id }}</td>
+                    <td>{{ e.first_name }}</td>
+                    <td>{{ e.last_name }}</td>
+                    <td>{{ e.departamento }}</td>
+                    <td>
+                        <div class="button-group stacked-for-small" style="gap: 0.7rem;"> <!-- Botones adaptativos -->
+                            <a class="button success" href="{% url 'persona_app:modificar_empleado' e.id%}">Editar</a>
+                            <a class="button alert" href="{% url 'persona_app:delete_empleado' e.id%}">Eliminar</a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="cell">
+        {% if is_paginated %}
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <!-- Enlace para la página anterior -->
+                {% if page_obj.has_previous %}
+                <li class="pagination-previous">
+                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Página anterior">Anterior</a>
+                </li>
+                {% else %}
+                <li class="pagination-previous disabled">
+                    <span>Anterior</span>
+                </li>
+                {% endif %}
+
+                <!-- Rango de páginas -->
+                {% for pagina in paginator.page_range %}
+                <li class="{% if pagina == page_obj.number %}current{% endif %}">
+                    {% if pagina == page_obj.number %}
+                    <span>{{ pagina }}</span>
+                    {% else %}
+                    <a href="?page={{ pagina }}" aria-label="Página {{ pagina }}">{{ pagina }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+
+                <!-- Enlace para la página siguiente -->
+                {% if page_obj.has_next %}
+                <li class="pagination-next">
+                    <a href="?page={{ page_obj.next_page_number }}" aria-label="Página siguiente">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="pagination-next disabled">
+                    <span>Siguiente</span>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

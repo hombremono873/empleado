@@ -1,27 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Detalle del Empleado</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-    <h2>{{ titulo }}</h2>
-    <h1>Detalle del empleado</h1>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Detalle del Empleado
+{% endblock title %}
+
+{% block content %}
+    <!-- Incluyendo el encabezado desde 'header.html' -->
+    {% include 'includes/header.html' %}
     
-    <!-- Mostrar información del empleado -->
-    <p><strong>Nombre:</strong> {{ object.first_name }} {{ object.last_name }}</p>
-    <p><strong>Trabajo:</strong> {{ object.job }}</p>
-    
-    <!-- Mostrar habilidades -->
-    <h2>Habilidades</h2>
-    <ul>
-        {% for habilidad in habilidades %}
-            <li>{{ habilidad }}</li>
-        {% empty %}
-            <li>Este empleado no tiene habilidades registradas.</li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+    <div class="grid-container">
+        <!-- Encabezado de la sección -->
+        <div class="grid-x grid-padding-x align-center text-center">
+            <div class="cell medium-8">
+                <h1 class="primary-color">{{ titulo }}</h1>
+              
+            </div>
+        </div>
+
+        <!-- Caja única para la información del empleado -->
+        <div class="grid-x grid-padding-x align-center">
+            <div class="cell medium-8">
+                <div class="callout custom-box">
+                    <!-- Información básica del empleado -->
+                    <div class="employee-info">
+                        <h3 class="secondary-color">Información del Empleado</h3>
+                        <p><strong>Nombre:</strong> {{ object.first_name }} {{ object.last_name }}</p>
+                        <p><strong>Trabajo:</strong> {{ object.job }}</p>
+                    </div>
+
+                    <!-- Habilidades del empleado -->
+                    <div class="employee-skills">
+                        <h3 class="secondary-color">Habilidades</h3>
+                        <ul class="no-bullet">
+                            {% for habilidad in habilidades %}
+                                <li><i class="fa fa-check-circle" aria-hidden="true"></i> {{ habilidad }}</li>
+                            {% empty %}
+                                <li class="alert-box warning">Este empleado no tiene habilidades registradas.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

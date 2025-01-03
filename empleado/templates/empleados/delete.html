@@ -1,15 +1,37 @@
-<h1>Eliminar empleado</h1>
-<form method="POST">
-    {% csrf_token %}
-    <p>Estás a punto de eliminar el siguiente empleado:</p>
-    <ul>
-        <li><strong>Nombre:</strong> {{ object.first_name }}</li>
-        <li><strong>Apellido:</strong> {{ object.last_name }}</li>
-        <li><strong>Trabajo:</strong> {{ object.job }}</li>
-        <li><strong>Departamento:</strong> {{ object.departamento }}</li>
-        <li><strong>Habilidades:</strong> {{ object.habilidades }}</li>
-    </ul>
-    <p>¿Deseas eliminar?</p>
-    <button type="submit" class="btn btn-danger">Eliminar</button>
-    <button type="button" class="btn btn-default" onclick="window.location.href='{% url 'persona_app:correcto' %}'">No eliminar</button> <!-- Botón para cancelar -->
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+   Elimina registro
+{% endblock title %}
+
+{% block content %}
+   {% include 'includes/header.html' %}
+   
+   <div class="grid-container">
+       <div class="grid-x grid-padding-x">
+           <div class="cell">
+               <p class="lead">Eliminar Empleado: {{empleado.first_name}} {{empleado.last_name}}</p>
+           </div>
+       </div>
+
+       <div class="grid-x grid-padding-x">
+           <!-- Usamos 'cell large-12' para hacer que la caja ocupe todo el ancho disponible -->
+           <div class="cell large-12">
+               <form method="POST">
+                   {% csrf_token %}
+                   <!-- La caja 'callout' ahora debería ocupar todo el ancho disponible -->
+                   <div class="callout secondary expanded">
+                       <h5>¿Deseas eliminar este empleado?</h5>
+                       <div>
+                           <button type="submit" class="alert button">Confirmar</button>
+                           <!-- Botón de cancelación -->
+                           <a href="{% url 'persona_app:empleados_admin' %}" class="button secondary">Cancelar</a>
+                       </div>
+                   </div>
+               </form>
+           </div>
+       </div>
+   </div>
+
+{% endblock content %}

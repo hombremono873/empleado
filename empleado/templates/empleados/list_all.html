@@ -14,7 +14,7 @@
 
         <!-- Formulario de búsqueda -->
         <form class="cell grid-x grid-margin-x" method="GET">
-            {%csrf_token%}
+            {% csrf_token %}
             <div class="cell large-7">
                 <input type="text" placeholder="Digite el nombre aquí"
                     id="kword" name="kword">
@@ -38,18 +38,61 @@
                 </tr>
             </thead>
             <tbody>
-                {% for empleado in empleados %}
+                {% for e in empleados %}
                 <tr>
-                    <td class="cell">{{ empleado.id }}</td>
-                    <td class="cell">{{ empleado.first_name }}</td>
-                    <td class="cell">{{ empleado.last_name }}</td>
-                    <td class="cell">{{ empleado.departamento }}</td>
-                    <td class="cell"><a class="button warning" href="#">Warning</a></td>
+                    <td class="cell">{{ e.id }}</td>
+                    <td class="cell">{{ e.first_name }}</td>
+                    <td class="cell">{{ e.last_name }}</td>
+                    <td class="cell">{{ e.departamento }}</td>
+                    <!--En  href se envía la url para acceder a la vista EmpleadoDetailView-->
+                    <!--La vista espera el parametro id para buscar el elemento e.id-->
+                    <td class="cell"><a class="button warning" href="{% url 'persona_app:empleado_detalle' e.id %}">Ver</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    <div class="cell">
+        {% if is_paginated %}
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <!-- Enlace para la página anterior -->
+                {% if page_obj.has_previous %}
+                <li class="pagination-previous">
+                    <a href="?page={{ page_obj.previous_page_number }}" aria-label="Página anterior">Anterior</a>
+                </li>
+                {% else %}
+                <li class="pagination-previous disabled">
+                    <span>Anterior</span>
+                </li>
+                {% endif %}
+    
+                <!-- Rango de páginas -->
+                {% for pagina in paginator.page_range %}
+                <li class="{% if pagina == page_obj.number %}current{% endif %}">
+                    {% if pagina == page_obj.number %}
+                    <span>{{ pagina }}</span>
+                    {% else %}
+                    <a href="?page={{ pagina }}" aria-label="Página {{ pagina }}">{{ pagina }}</a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+    
+                <!-- Enlace para la página siguiente -->
+                {% if page_obj.has_next %}
+                <li class="pagination-next">
+                    <a href="?page={{ page_obj.next_page_number }}" aria-label="Página siguiente">Siguiente</a>
+                </li>
+                {% else %}
+                <li class="pagination-next disabled">
+                    <span>Siguiente</span>
+                </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+    
 </div>
 
 {% endblock content %}

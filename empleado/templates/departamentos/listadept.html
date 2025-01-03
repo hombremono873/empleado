@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+   Lista Departamentos
+{% endblock title %}
+
+{% block content %}
+    <!-- Incluyendo el encabezado desde 'header.html' -->
+    {% include 'includes/header.html' %}
+
+    <!-- Contenedor de la tabla con estilo de Foundation -->
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="cell medium-12" style="margin-top: 6px;">
+                <div class="callout secondary" style="background-color: #2c3e50;">
+                    <table class="table align-middle hover">
+                        <thead>
+                            <tr>
+                                <th class="small-4 medium-3 large-3 xsmall-2">Nombre del departamento</th>
+                                <th class="small-4 medium-3 large-3 xsmall-2">Alias del departamento</th>
+                                <th class="small-2 medium-2 large-2 xsmall-2">Estado</th>
+                                <th class="small-2 medium-2 large-2 xsmall-2">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for dep in departamentos %}
+                            <tr>
+                                <td>{{ dep.name }}</td>
+                                <td>{{ dep.short_name }}</td>
+                                <td>{{ dep.active }}</td>
+                                <td>
+                                    <a class="button warning small" href="{% url 'persona_app:empleado_detalle' dep.id %}">Ver empleados</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -7,23 +7,31 @@ from django.views.generic import ( # type: ignore
     )
 from .models import Empleado
 from django.urls import reverse_lazy # type: ignore
+from django.http import Http404
 
 class ListallEmpleados(ListView):
     template_name = 'empleados/list_all.html'
     ##model = Empleado al sobre escribir get_queryset no se requiere al parametro 
     context_object_name = "empleados"
-    paginate_by = 4  # Paginación, 4 empleados por página
+    paginate_by = 4  #Cuando se pagina , automaticamente ListView crea un objeto de paginación
+    ordering = 'first_name'
     
-    #ordering=['first_name']
     def get_queryset(self):
         palabra_clave = self.request.GET.get("kword", '')  # Recuperamos la palabra clave
         lista = Empleado.objects.filter(
-            #first_name__icontains=palabra_clave
-            first_name__icontains = palabra_clave
+             first_name__icontains = palabra_clave    #Palabra clave es el name empleado
         )  # Hacemos la búsqueda de forma insensible a mayúsculas/minúsculas
         return lista
     
-   
+class ListaEmpleadosAdmin(ListView):
+    template_name = 'empleados/list_empleados_admin.html'
+    model = Empleado                #Al sobre escribir get_queryset no se requiere al parametro 
+    context_object_name = "empleados"
+    paginate_by = 10                #Cuando se pagina , automaticamente ListView crea un objeto de paginación
+    ordering = 'first_name'
+    
+    
+      
         
 
 class ListByAreaEmpleados(ListView):
@@ -76,17 +84,26 @@ class ListarHabilidades(ListView):
         empleado = Empleado.objects.get(id=int(ident))
         lista = empleado.habilidades.all()
         return lista
-    
 class EmpleadoDetailView(DetailView):
-    model =Empleado   
-    template_name="empleados/detalle_empleado.html"
+    model = Empleado   
+    template_name = "empleados/detalle_empleado.html"
+
+    def get_object(self, queryset=None):
+        try:
+            return super().get_object(queryset)
+        except Empleado.DoesNotExist:
+            raise Http404("Empleado no encontrado")   
+class EmpleadoDetailView1(DetailView):
+    model = Empleado   
+    template_name = "empleados/detalle_empleado.html"
     
     def get_context_data(self, **kwargs):
-        context = super(EmpleadoDetailView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         empleado = self.get_object()
-        context['titulo','habilidades'] = empleado.habilidades.all()
+        context['titulo'] = 'Detalle del Empleado'
+        context['habilidades'] = empleado.habilidades.all()
         return context
-    
+       
 class About(TemplateView):
     template_name = "empleados/about.html"  # Plantilla que renderiza la página
     def get_context_data(self, **kwargs):
@@ -103,7 +120,14 @@ class About(TemplateView):
 class EmpleadoCreateView(CreateView):
     model = Empleado  
     template_name = "empleados/createEmpleado.html"  
-    fields =['first_name', 'last_name','job','departamento', 'habilidades']
+    fields =[
+        'first_name',
+        'last_name',
+        'job',
+        'departamento', 
+        'habilidades',
+        'imagen',
+    ]
     #fields =('__all__')
     #success_url = '/about'  #Redireccionamos
     def  form_valid(self, form):
@@ -111,8 +135,7 @@ class EmpleadoCreateView(CreateView):
         empleado.full_name = empleado.first_name + ' ' +empleado.last_name
         empleado.save() #Actualiza en la base de datos el atributo full_name
         return super(EmpleadoCreateView, self).form_valid(form)
-    
-    success_url = reverse_lazy('persona_app:correcto')
+    success_url = reverse_lazy('persona_app:empleados_admin')
     
 #Para mostrar los datos use form form.as_p O usando cada campo asi:
 #form.first_name, form.last_name .........
@@ -122,44 +145,32 @@ class EmpleadoUpdateView(UpdateView):
     model=Empleado
     template_name = "empleados/update.html" 
     fields =['first_name', 'last_name','job','departamento', 'habilidades']
+    success_url = reverse_lazy('persona_app:empleados_admin')
     
-    """Vifurcar hacia otra página"""
-    success_url = reverse_lazy('persona_app:correcto')
-    
-    """Cuando necesitamos hacer un proceso extra antes de guardar los datos
-    Podemos sobre-escribir los methodos Post y form_valid
-    Es decir con Pos obtengo un objeto especifico los proceso segun sea necesario y luego se llama
-    al form_valid"""
     #Observar self.object se carga con el objeto empleado
     #El parametro request trae el valor de los campos a los que se quiere procesar
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print("==================Methodo Post=====================")
-        print(self.object.first_name)
-        #Se obtiene un diccionario
+       #Se obtiene un diccionario
         ob = request.POST.copy()
-        ob['last_name'] = "Perez"
+        #ob['last_name'] = "Perez"
         request.POST = ob
-        print(ob)
-        print("***********Fin metodo Post*********")
         return super().post(request, *args, **kwargs) 
-    """En el metodo post mediante request obtuvimos una copia diccionario de datos
-    modificamos el dato y se salva en auto en la bdd"""
+    
     #Observemos que cargamos el objeto empleado  
     def  form_valid(self, form):
         #empleado = form.save() #Se salva eb BDD y ademas se asigna la data a empleado
-        print("********Metodo form_valid*************")
-        #print(empleado.last_name)
-        print("******Ened valid**********")
         return super(EmpleadoUpdateView, self).form_valid(form) 
     
 class EmpleadoDeleteView(DeleteView):
       model=Empleado
       template_name="empleados/delete.html"
-      success_url = reverse_lazy('persona_app:correcto')
-      
+      success_url = reverse_lazy('persona_app:empleados_admin')
+      context_object_name="empleado"
+      success_url = reverse_lazy('persona_app:empleados_admin')
 class InicioView(TemplateView):
     """Pagina de incio no depende de nadie va directo"""   
     template_name = "inicio.html"       
     model = Empleado
+    
     

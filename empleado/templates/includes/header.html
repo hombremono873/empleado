@@ -5,14 +5,14 @@
         <li>
           <a href="/listar_all_empleados">Listar</a> <!--Cargamos url aqui listar-all-->
         </li>
-        <li><a href="{% url 'persona_app:empleados_all' %}">Departamentos</a></li>
-        <li><a href="#">Administrar</a></li>
+        <li><a href="{% url 'dep_app:lista_dep' %}">Departamentos</a></li>
+        <li><a href="{% url 'persona_app:empleados_admin' %}">Administrar</a></li>
       </ul>
     </div>
     <div class="top-bar-right">
       <ul class="menu">
-        <li><input type="search" placeholder="Buscar empleados"></li>
-        <li><button type="button" class="button">Registrar nuevo</button></li>
+        <li><input type="search" placeholder="Registrar nuevo empleados"></li>
+        <li><a href="{% url 'persona_app:nuevo_empleado' %}" class="button">Registrar nuevo</a></li>
       </ul>
     </div>
   </div>

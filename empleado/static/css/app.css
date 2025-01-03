@@ -1,3 +1,116 @@
-.prueba{
-    background: blue;
+/* ====== Estilos globales ====== */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+  }
+  body {
+    min-width: 320px; /* Establece un ancho mínimo para la pantalla */
 }
+  header {
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  /* ====== Estilos para pantallas grandes (escritorio) ====== */
+  @media (min-width: 1024px) {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+  
+    .card {
+      flex: 1 1 calc(33.333% - 20px); /* Tres tarjetas por fila */
+      max-width: calc(33.333% - 20px);
+    }
+  }
+  
+  /* ====== Estilos para tabletas (pantallas medianas) ====== */
+  @media (max-width: 1023px) and (min-width: 768px) {
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+  
+    .card {
+      flex: 1 1 calc(50% - 15px); /* Dos tarjetas por fila */
+      max-width: calc(50% - 15px);
+    }
+  
+    header {
+      font-size: 1.5rem;
+      padding: 15px 0;
+    }
+  }
+  
+  /* ====== Estilos para móviles (pantallas pequeñas) ====== */
+  @media (max-width: 767px) {
+    .container {
+      padding: 10px;
+    }
+  
+    .card {
+      flex: 1 1 100%; /* Una tarjeta por fila */
+      max-width: 100%;
+    }
+  
+    header {
+      font-size: 1.2rem;
+      padding: 10px 0;
+    }
+  }
+  
+  /* ====== Estilos para orientación horizontal ====== */
+  @media (orientation: landscape) {
+    body {
+      background-color: #e3f2fd;
+    }
+  
+    header {
+      font-size: 2rem;
+    }
+  }
+  
+  /* ====== Estilos para pantallas muy pequeñas ====== */
+  @media (max-width: 480px) {
+    .card {
+      padding: 15px;
+      font-size: 0.9rem;
+    }
+  
+    header {
+      font-size: 1rem;
+    }
+  }
+  
+  /* ====== Estilos para pantallas altas ====== */
+  @media (min-height: 800px) {
+    footer {
+      font-size: 1rem;
+      padding: 20px;
+      background-color: #007bff;
+      color: white;
+      text-align: center;
+    }
+  }
+  
