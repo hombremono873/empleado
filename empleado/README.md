@@ -48,5 +48,5 @@ Asumiendo que la clase del Modelo empleados debe almacenar una imagen:
  - <enctype="multipart/form-data" fundamental para que se cree la imagen>
  - esto debe estar en la etiqueta form "enctype="multipart/form-data"
  - <form method="POST" class="cell grid-x grid-margin-x" enctype="multipart/form-data">
-
+- ultimo anexo
  
