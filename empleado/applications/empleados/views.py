@@ -9,6 +9,9 @@ from .models import Empleado
 from django.urls import reverse_lazy # type: ignore
 from django.http import Http404
 
+#Importamos el formulario que usaremos para personalizar nuestra vista
+from .forms import EmpleadoForm
+
 class ListallEmpleados(ListView):
     template_name = 'empleados/list_all.html'
     ##model = Empleado al sobre escribir get_queryset no se requiere al parametro 
@@ -120,14 +123,15 @@ class About(TemplateView):
 class EmpleadoCreateView(CreateView):
     model = Empleado  
     template_name = "empleados/createEmpleado.html"  
-    fields =[
+    form_class = EmpleadoForm
+    """fields =[
         'first_name',
         'last_name',
         'job',
         'departamento', 
         'habilidades',
         'imagen',
-    ]
+    ]"""
     #fields =('__all__')
     #success_url = '/about'  #Redireccionamos
     def  form_valid(self, form):

@@ -1,5 +1,34 @@
-<h1>Formulario simple</h1>
-<form method="POST">{% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Guardar</button>
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    Nuevo departamento
+{% endblock title %}
+
+{% block content %}
+    {% include 'includes/header.html' %}
+
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x align-center">
+            <h2 class="cell large-8 text-center">Crear un nuevo departamento</h2>
+        </div>
+
+        <!-- Ajuste para centrar el formulario dentro de su contenedor -->
+        <div class="cell large-6 medium-8 small-10" style="max-width: 800px; margin: 0 auto;">
+            <form method="POST" class="callout">
+                {% csrf_token %}
+                <div class="grid-x grid-padding-x">
+                    <!-- Aquí se renderizan todos los campos del formulario -->
+                    <div class="cell small-12">
+                        <!-- Se centra el contenido de cada campo de entrada -->
+                        {{ form.as_p }}
+                    </div>
+                    <div class="cell small-12 text-center">
+                        <button type="submit" class="button success expanded">Crear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock content %}

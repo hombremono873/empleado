@@ -14,7 +14,6 @@
         <div class="grid-x grid-padding-x align-center text-center">
             <div class="cell medium-8">
                 <h1 class="primary-color">{{ titulo }}</h1>
-              
             </div>
         </div>
 
@@ -26,15 +25,29 @@
                     <div class="employee-info">
                         <h3 class="secondary-color">Información del Empleado</h3>
                         <p><strong>Nombre:</strong> {{ object.first_name }} {{ object.last_name }}</p>
-                        <p><strong>Trabajo:</strong> {{ object.job }}</p>
+                        <p><strong>Trabajo:</strong> {{ object.get_job_display }}</p>
+                    </div>
+
+                    <!-- Card Divider para separar la sección de la imagen -->
+                    <div class="card-divider">
+                        <h4 class="secondary-color">Foto del Empleado</h4>
+                    </div>
+
+                    <!-- Mostrar la imagen del empleado -->
+                    <div class="employee-image text-center">
+                        {% if object.imagen %}
+                            <img src="{{ object.imagen.url }}" alt="Imagen de {{ object.first_name }} {{ object.last_name }}" class="employee-photo">
+                        {% else %}
+                            <p>No hay imagen disponible para este empleado.</p>
+                        {% endif %}
                     </div>
 
                     <!-- Habilidades del empleado -->
                     <div class="employee-skills">
                         <h3 class="secondary-color">Habilidades</h3>
                         <ul class="no-bullet">
-                            {% for habilidad in habilidades %}
-                                <li><i class="fa fa-check-circle" aria-hidden="true"></i> {{ habilidad }}</li>
+                            {% for habilidad in object.habilidades.all %}
+                                <li><i class="fa fa-check-circle" aria-hidden="true"></i>{{ forloop.counter }}. {{ habilidad.habilidad }}</li>
                             {% empty %}
                                 <li class="alert-box warning">Este empleado no tiene habilidades registradas.</li>
                             {% endfor %}
